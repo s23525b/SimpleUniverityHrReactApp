@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/fragments/Header';
+import Navigation from './components/fragments/Navigation';
+import MainContent from "./components/other/MainContent";
+import Footer from './components/fragments/Footer'
+
+import {Routes, Route} from 'react-router-dom'
+import ProfessorList from './components/professor/ProfessorList'
+import ProfessorDetails from "./components/professor/ProfessorDetails";
+
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+    return (
+        <>
+            <Header/>
+            <Navigation/>
+            <Routes>
+                <Route path="/" element={<MainContent/>}/>
+                <Route path="/professors">
+                    <Route index={true} element={<ProfessorList/>}/>
+                    <Route path="details/:profId" element={<ProfessorDetails/>}/>
+                </Route>
+            </Routes>
+            <Footer/>
+        </>
+    );
 }
 
 export default App;
