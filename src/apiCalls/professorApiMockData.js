@@ -57,7 +57,7 @@ export const professorDetailsList = [
                     "_id": 2,
                     "name": "Informatyka",
                     "totalHours": "150",
-                    "description": "'W ramach wybranych przedmiotów na III roku można rozwijać się w jednej z dziedzin (...)",
+                    "description": "W ramach wybranych przedmiotów na III roku można rozwijać się w jednej z dziedzin (...)",
                 }
             }
         ]
@@ -89,6 +89,7 @@ export const professorDetailsList = [
         "firstName": "Marian",
         "lastName": "Nowak",
         "email": "marian.nowak@uot.com",
-        "employments": []
+        "lectures": []
     }
 ]
+

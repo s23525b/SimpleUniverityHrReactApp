@@ -1,10 +1,11 @@
-import {professorList, professorDetailsList} from './professorApiMockData'
+import {professorDetailsList, professorList} from './professorApiMockData';
+import {lectureDetailsList, lectureList} from './lectureApiMockData';
 
 export function getProfessorApiCall() {
     return professorList;
 }
 
 export function getProfessorByIdApiCall(profId) {
-    const prof = professorDetailsList.find(prof => prof._id === profId)
-    return prof;
+    return professorDetailsList.find(prof => prof._id === profId);
 }
+

@@ -143,12 +143,11 @@ div.scrollable {
     background-color: #2980b9;
 }
 
-
 .list-actions-button-edit {
     background-color: #FB9017;
 }
 
-.list-actions-button-delete {
+.list-actions-button-delete, .button-back {
     background-color: #e74c3c;
 }
 
@@ -162,7 +161,12 @@ div.scrollable {
     color: black;
 }
 
-.list-actions-button-delete:hover {
+.button-back {
+    margin: 2em auto;
+
+}
+
+.list-actions-button-delete:hover, .button-back:hover {
     background-color: #FFB703;
     color: black;
 }
@@ -274,7 +278,7 @@ input:invalid {
 
 
 .list-actions-button-details, .list-actions-button-edit, .list-actions-button-delete,
-.button-add, .form-button-submit, .form-button-cancel, .form-button-edit {
+.button-add, .form-button-submit, .form-button-cancel, .form-button-edit, .button-back {
     border: none;
     border-radius: 6px;
     color: white;
@@ -287,6 +291,11 @@ input:invalid {
     display: block;
 
 
+}
+
+.button-back {
+    width: 20%;
+    display: inline-block;
 }
 
 .button-add, .form-button-submit, .form-button-cancel, .form-button-edit {
@@ -328,7 +337,7 @@ input:invalid {
     margin-left: 1rem;
 }
 
-.button-add{
+.button-add {
     width: 17rem;
 }
 
@@ -338,17 +347,19 @@ input:invalid {
     border: 3px solid #e74c3c;
 }
 
-.errors-text {
-    display: block;
+abbr {
+    margin-left: 5px;
     font-size: 0.85em;
     line-height: 1.25rem;
     margin-top: 0.3em;
     margin-bottom: 0.6em;
     color: #e74c3c;
-
+    outline: none;
+    border-bottom: none;
+    text-decoration: none;
 }
 
-.errors-text, .symbol-required {
+.symbol-required {
     color: #c0392b;
 }
 
