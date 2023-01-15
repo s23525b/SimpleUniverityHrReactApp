@@ -1,9 +1,9 @@
 import React from "react"
-import { Link } from 'react-router-dom'
-import { getLectureByIdApiCall } from '../../apiCalls/lectureApiCalls'
+import {Link} from 'react-router-dom'
+import {getLectureApiCall} from '../../apiCalls/lectureApiCalls'
 
 function LectureList() {
-    const lectureList = getLectureByIdApiCall()
+    const lectureList = getLectureApiCall()
 
     return (
         <main>
@@ -11,23 +11,32 @@ function LectureList() {
             <table className="table-list">
                 <thead>
                 <tr>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
+                    <th>Nazwa</th>
+                    <th>Wykładowca</th>
                     <th>Departament</th>
+                    <th>Data od</th>
+                    <th>Data do</th>
+                    <th>Czas trwania</th>
                     <th>Opcje</th>
                 </tr>
                 </thead>
                 <tbody>
-                {lectureList.map(employment => (
-                    <tr key={employment._id}>
-                        <td>{employment.employee.firstName}</td>
-                        <td>{employment.employee.lastName}</td>
-                        <td>{employment.department.name}</td>
+                {lectureList.map(lecture => (
+                    <tr key={lecture._id}>
+                        <td>{lecture.name}</td>
+                        <td>{lecture.professor.firstName + ' ' + lecture.professor.lastName}</td>
+                        <td>{lecture.department.name}</td>
+                        <td>{lecture.dateFrom}</td>
+                        <td>{lecture.dateTo}</td>
+                        <td>{lecture.duration}</td>
                         <td>
                             <ul className="list-actions">
-                                <li><Link to={`employment/details/${employment._id}`} className="list-actions-button-details">Szczegóły</Link></li>
-                                <li><Link to={`employment/edit/${employment._id}`} className="list-actions-button-edit">Edytuj</Link></li>
-                                <li><Link to={`employment/delete/${employment._id}`} className="list-actions-button-delete">Usuń</Link></li>
+                                <li><Link to={`details/${lecture._id}`}
+                                          className="list-actions-button-details">Szczegóły</Link></li>
+                                <li><Link to={`edit/${lecture._id}`}
+                                          className="list-actions-button-edit">Edytuj</Link></li>
+                                <li><Link to={`delete/${lecture._id}`}
+                                          className="list-actions-button-delete">Usuń</Link></li>
                             </ul>
                         </td>
                     </tr>
@@ -35,7 +44,7 @@ function LectureList() {
                 </tbody>
             </table>
             <p className="section-buttons">
-                <Link to="/employment/add" className="button-add">Dodaj nowe zatrudnienie</Link>
+                <Link to="/lectures/add" className="button-add">Dodaj nowy wykład</Link>
             </p>
         </main>
     )

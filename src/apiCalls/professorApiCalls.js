@@ -1,5 +1,5 @@
 import {professorDetailsList, professorList} from './professorApiMockData';
-import {lectureDetailsList, lectureList} from './lectureApiMockData';
+
 
 export function getProfessorApiCall() {
     return professorList;

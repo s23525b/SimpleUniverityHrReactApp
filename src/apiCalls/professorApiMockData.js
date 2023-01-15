@@ -11,7 +11,7 @@ export const professorList = [
         "firstName": "Adam",
         "lastName": "Zieliński",
         "email": "adam.zielinski@uot.com",
-        "specialization": "informatyka",
+        "specialization": "bazy danych",
     },
     {
         "_id": 3,
@@ -39,27 +39,10 @@ export const professorDetailsList = [
                 "dept_id": 1,
                 "duration": "90",
                 "department": {
-                    "_id": 1,
-                    "name": "Matematyka",
-                    "totalHours": "50",
+                    _id: 1, name: 'Matematyka', "totalHours": "50",
                     "description": "W trakcie studiów na kierunku matematyka studenci zdobywają wiedzę (...)",
-                }
+                },
             },
-            {
-                "_id": 3,
-                "name": "Podstawy GUI",
-                "dateFrom": "2001-01-01T00:00:00.000Z",
-                "dateTo": "2009-01-01T00:00:00.000Z",
-                "prof_id": 2,
-                "dept_id": 2,
-                "duration": "120",
-                "department": {
-                    "_id": 2,
-                    "name": "Informatyka",
-                    "totalHours": "150",
-                    "description": "W ramach wybranych przedmiotów na III roku można rozwijać się w jednej z dziedzin (...)",
-                }
-            }
         ]
     },
     {
@@ -67,6 +50,7 @@ export const professorDetailsList = [
         "firstName": "Adam",
         "lastName": "Zieliński",
         "email": "adam.zielinski@uot.com",
+        "specialization": "bazy danych",
         "lectures": [
             {
                 "_id": 2,
@@ -77,11 +61,10 @@ export const professorDetailsList = [
                 "dept_id": 2,
                 "duration": "90",
                 "department": {
-                    "_id": 2,
-                    "name": "Informatyka",
-                    "totalHours": "50",
-                }
-            }
+                    _id: 1, name: 'Matematyka', "totalHours": "50",
+                    "description": "W trakcie studiów na kierunku matematyka studenci zdobywają wiedzę (...)",
+                },
+            },
         ]
     },
     {
@@ -89,6 +72,7 @@ export const professorDetailsList = [
         "firstName": "Marian",
         "lastName": "Nowak",
         "email": "marian.nowak@uot.com",
+        "specialization": "geometria",
         "lectures": []
     }
 ]
