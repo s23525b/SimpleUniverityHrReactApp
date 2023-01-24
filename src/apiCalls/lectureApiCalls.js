@@ -1,9 +1,10 @@
-import {lectureDetailsList} from "./lectureApiMockData";
+const lecturesBaseUrl = 'http://localhost:3000/api/lectures'
 
 export function getLectureApiCall() {
-    return lectureDetailsList;
+    return fetch(lecturesBaseUrl);
 }
 
 export function getLectureByIdApiCall(lectId) {
-    return lectureDetailsList.find(lect => lect._id === lectId)
+    const url = `${lecturesBaseUrl}/${lectId}`;
+    return fetch(url); //promise
 }

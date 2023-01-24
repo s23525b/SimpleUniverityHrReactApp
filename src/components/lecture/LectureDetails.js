@@ -1,26 +1,58 @@
-import React from 'react'
+import {useState, useEffect} from "react";
 import {Link, useParams} from 'react-router-dom'
 import {getLectureByIdApiCall} from '../../apiCalls/lectureApiCalls'
-import {getFormattedDate} from '../../helpers/dateHelper'
+import LectureDetailsData from './LectureDetailsData'
 
 function LectureDetails() {
-    let {lectId} = useParams()
-    lectId = parseInt(lectId)
-    const lecture = getLectureByIdApiCall(lectId)
-    const lectureDateFrom = lecture.dateFrom ? getFormattedDate(lecture.dateFrom) : ""
-    const lectureDateTo = lecture.dateTo ? getFormattedDate(lecture.dateTo) : ""
+
+    const [lectures, setLectures] = useState([])
+    const [error, setError] = useState(null)
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [message, setMessage] = useState(null)
+
+    let {lectId} = useParams();
+    lectId = parseInt(lectId);
+
+
+    function fetchLectureDetails() {
+        getLectureByIdApiCall(lectId)
+            .then(result => result.json())
+            .then((data) => {
+                    if (data.message) {
+                        setLectures(null)
+                        setMessage(data.message)
+                    } else {
+                        setLectures(data)
+                        setMessage(null)
+                    }
+                    setIsLoaded(true)
+                },
+                (error) => {
+                    setIsLoaded(true)
+                    setError(error)
+                }
+            )
+    }
+
+    useEffect(() => {
+        fetchLectureDetails()
+    })
+
+    let content;
+
+    if (error) {
+        content = <p>Błąd: {error.message}</p>
+    } else if (!isLoaded) {
+        content = <p>Ładowanie wykładu...</p>
+    } else {
+        content = <LectureDetailsData lectureData={lectures}/>
+    }
 
     return (
         <main>
-            <h2>Szczegóły Wykładu</h2>
-            <p>Nazwa: {lecture.name}</p>
-            <p>Wykładowca: {lecture.professor.firstName + ' ' + lecture.professor.lastName}</p>
-            <p>Katedra: {lecture.department.name} </p>
-            <p>Od: {lectureDateFrom} </p>
-            {lectureDateTo && <p>Do: {lectureDateTo} </p>}
-            <p>Czas trwania: {lecture.duration + ' minut'} </p>
+            {content}
             <div className="section-buttons">
-                <Link to="/lectures" className="button-back">Powrót</Link>
+                <Link className="button-back" to="/lectures">Wróć</Link>
             </div>
         </main>
     )

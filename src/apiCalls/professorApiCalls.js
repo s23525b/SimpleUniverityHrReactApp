@@ -1,11 +1,13 @@
-import {professorDetailsList, professorList} from './professorApiMockData';
-
+const professorsBaseUrl = 'http://localhost:3000/api/professors';
 
 export function getProfessorApiCall() {
-    return professorList;
+    //console.log(fetch(professorsBaseUrl));
+    return fetch(professorsBaseUrl); //promise
 }
 
+
 export function getProfessorByIdApiCall(profId) {
-    return professorDetailsList.find(prof => prof._id === profId);
+    const url = `${professorsBaseUrl}/${profId}`;
+    return fetch(url); //promise
 }
 

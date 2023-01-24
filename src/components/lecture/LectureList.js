@@ -1,50 +1,48 @@
-import React from "react"
 import {Link} from 'react-router-dom'
 import {getLectureApiCall} from '../../apiCalls/lectureApiCalls'
+import {useEffect, useState} from "react";
+import LectureListTable from './LectureListTable'
 
 function LectureList() {
-    const lectureList = getLectureApiCall()
+    const [error, setError] = useState(null)
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [lectures, setLectures] = useState([])
+    let content;
+
+    function fetchLecturesList() {
+        getLectureApiCall()
+            .then(response => response.json())
+            .then(data => {
+                    setLectures(data)
+                    setIsLoaded(true)
+                },
+                (error) => {
+                    setIsLoaded(true)
+                    setError(error)
+                }
+            )
+    }
+
+    useEffect(() => {
+        fetchLecturesList()
+    }, [])
+
+    if (error) {
+        content = <p>Błąd: {error.message}</p>
+    } else if (!isLoaded) {
+        content = <p>Ładowanie danych wykładów...</p>
+    } else if (lectures.length === 0) {
+        content = <p>Brak wykładów...</p>
+    } else {
+        content = <LectureListTable lecturesList={lectures}/>
+    }
 
     return (
         <main>
-            <h2>Lista wykładów</h2>
-            <table className="table-list">
-                <thead>
-                <tr>
-                    <th>Nazwa</th>
-                    <th>Wykładowca</th>
-                    <th>Departament</th>
-                    <th>Data od</th>
-                    <th>Data do</th>
-                    <th>Czas trwania</th>
-                    <th>Opcje</th>
-                </tr>
-                </thead>
-                <tbody>
-                {lectureList.map(lecture => (
-                    <tr key={lecture._id}>
-                        <td>{lecture.name}</td>
-                        <td>{lecture.professor.firstName + ' ' + lecture.professor.lastName}</td>
-                        <td>{lecture.department.name}</td>
-                        <td>{lecture.dateFrom}</td>
-                        <td>{lecture.dateTo}</td>
-                        <td>{lecture.duration}</td>
-                        <td>
-                            <ul className="list-actions">
-                                <li><Link to={`details/${lecture._id}`}
-                                          className="list-actions-button-details">Szczegóły</Link></li>
-                                <li><Link to={`edit/${lecture._id}`}
-                                          className="list-actions-button-edit">Edytuj</Link></li>
-                                <li><Link to={`delete/${lecture._id}`}
-                                          className="list-actions-button-delete">Usuń</Link></li>
-                            </ul>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            <h2>Lista wykładów:</h2>
+            {content}
             <p className="section-buttons">
-                <Link to="/lectures/add" className="button-add">Dodaj nowy wykład</Link>
+                <Link to="/lectures/add" className="button-add">Dodaj nowy</Link>
             </p>
         </main>
     )

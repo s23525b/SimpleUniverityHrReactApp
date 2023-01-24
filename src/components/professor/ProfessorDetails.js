@@ -1,44 +1,58 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link, useParams} from 'react-router-dom'
 import {getProfessorByIdApiCall} from '../../apiCalls/professorApiCalls'
-import {getFormattedDate} from '../../helpers/dateHelper'
+import ProfessorDetailsData from "./ProfessorDetailsData";
 
 function ProfessorDetails() {
     let {profId} = useParams()
     profId = parseInt(profId)
     const prof = getProfessorByIdApiCall(profId)
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [professors, setProfessors] = useState([]);
 
+    function fetchProfessorDetails() {
+        getProfessorByIdApiCall(profId)
+            .then(res => res.json())
+            .then((data) => {
+                    if (data.message) {
+                        setProfessors(null)
+                        setMessage(data.message)
+                    } else {
+                        setProfessors(data)
+                        setMessage(null)
+                    }
+                    setIsLoaded(true)
+                },
+                (error) => {
+                    setIsLoaded(true)
+                    setError(error)
+                }
+            )
+    }
+
+    useEffect(() => {
+        fetchProfessorDetails()
+    })
+
+    let content;
+
+    if (error) {
+        content = <p>{error.message}</p>
+    } else if (!isLoaded) {
+        content = <p>Ładowanie danych profesora...</p>
+    } else if (!prof) {
+        content = <p>Nie znaleziono profesora</p>
+    } else {
+        content = <ProfessorDetailsData profData={professors}/>
+    }
     return (
         <main>
             <h2>Szczegóły profesora</h2>
-            <p>Imię: {prof.firstName}</p>
-            <p>Nazwisko: {prof.lastName} </p>
-            <p>E-mail: {prof.email} </p>
-            <p>Specjalizacja: {prof.specialization} </p>
-            <h2>Wykłady</h2>
-            <table className="table-list">
-                <thead>
-                <tr>
-                    <th>Katedra</th>
-                    <th>Czas trwania</th>
-                    <th>Data od</th>
-                    <th>Data do</th>
-                </tr>
-                </thead>
-                <tbody>
-                {prof.lectures.map(
-                    lecture =>
-                        <tr key={lecture._id}>
-                            <td>{lecture.department.name}</td>
-                            <td>{lecture.duration}</td>
-                            <td>{lecture.dateFrom ? getFormattedDate(lecture.dateFrom) : ""}</td>
-                            <td>{lecture.dateTo ? getFormattedDate(lecture.dateTo) : ""}</td>
-                        </tr>
-                )}
-                </tbody>
-            </table>
+            {content}
             <div className="section-buttons">
-                <Link to="/professors" className="button-back">Powrót</Link>
+                <Link to="/professors" className="button-add">Wróć</Link>
             </div>
         </main>
     )
