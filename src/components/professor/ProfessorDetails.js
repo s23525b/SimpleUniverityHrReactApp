@@ -34,7 +34,7 @@ function ProfessorDetails() {
 
     useEffect(() => {
         fetchProfessorDetails()
-    })
+    },[])
 
     let content;
 
@@ -52,7 +52,7 @@ function ProfessorDetails() {
             <h2>Szczegóły profesora</h2>
             {content}
             <div className="section-buttons">
-                <Link to="/professors" className="button-add">Wróć</Link>
+                <Link to="/professors" className="button-add">Powrót</Link>
             </div>
         </main>
     )

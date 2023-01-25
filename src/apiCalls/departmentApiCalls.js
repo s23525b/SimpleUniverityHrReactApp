@@ -1,9 +1,10 @@
-import {departmentDetailsList, departmentList} from './departmentApiMockData'
+const departmentBaseUrl = 'http://localhost:3000/api/departments';
 
 export function getDepartmentsApiCall() {
-    return departmentList;
+    return fetch(departmentBaseUrl); //promise
 }
 
 export function getDepartmentByIdApiCall(deptId) {
-    return departmentDetailsList.find(dept => dept._id === deptId);
+    const url = `${departmentBaseUrl}/${deptId}`;
+    return fetch(url); //promise
 }

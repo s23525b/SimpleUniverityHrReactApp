@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfessorListTableRow from './ProfessorListTableRow'
+import ProfessorListTableRow from './ProfessorListTableRow';
 
 function ProfessorListTable(props) {
     const professors = props.profList

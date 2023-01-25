@@ -1,43 +1,56 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link, useParams} from 'react-router-dom'
 import {getDepartmentByIdApiCall} from "../../apiCalls/departmentApiCalls";
-import {getFormattedDate} from '../../helpers/dateHelper'
+import  DepartmentDetailsData from '../../apiCalls/departmentDetailsData'
 
 function DepartmentDetails() {
     let {deptId} = useParams()
     deptId = parseInt(deptId)
     const dept = getDepartmentByIdApiCall(deptId)
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [departments, setDepartments] = useState([]);
 
+    function fetchDepartmetnDetails() {
+        getDepartmentByIdApiCall(deptId)
+            .then(res => res.json())
+            .then(data => {
+                    if (data.message) {
+                        setDepartments(null)
+                        setMessage(data.message)
+                    } else {
+                        setDepartments(data)
+                        setMessage(null)
+                    }
+                    setIsLoaded(true)
+                },
+                (error) => {
+                    setIsLoaded(true)
+                    setError(error)
+                }
+            )
+    }
+
+    useEffect(() => {
+        fetchDepartmetnDetails()
+    },[])
+
+    let content;
+
+    if (error) {
+        content = <p>{error.message}</p>
+    }else if (!isLoaded) {
+        content = <p>Ładowanie danych katedr...</p>
+    } else if (!dept) {
+        content = <p>Nie znaleziono katedr</p>
+    } else {
+        content = <DepartmentDetailsData deptData={departments}/>
+    }
     return (
         <main>
             <h2>Szczegóły katedry</h2>
-            <p>Nazwa: {dept.name}</p>
-            <p>Ilosc godzin: {dept.totalHours} </p>
-            <p>Opis: {dept.description} </p>
-            <h2>Wykłady</h2>
-            <table className="table-list">
-                <thead>
-                <tr>
-                    <th>Nazwa</th>
-                    <th>Profesor</th>
-                    <th>Czas trwania</th>
-                    <th>Data od</th>
-                    <th>Data do</th>
-                </tr>
-                </thead>
-                <tbody>
-                {dept.lectures.map(
-                    lecture =>
-                        <tr key={lecture._id}>
-                            <td>{lecture.name}</td>
-                            <td>{lecture.professor.lastName}</td>
-                            <td>{lecture.duration}</td>
-                            <td>{lecture.dateFrom ? getFormattedDate(lecture.dateFrom) : ""}</td>
-                            <td>{lecture.dateTo ? getFormattedDate(lecture.dateTo) : ""}</td>
-                        </tr>
-                )}
-                </tbody>
-            </table>
+            {content}
             <div className="section-buttons">
                 <Link to="/departments" className="button-back">Powrót</Link>
             </div>

@@ -36,7 +36,7 @@ function LectureDetails() {
 
     useEffect(() => {
         fetchLectureDetails()
-    })
+    },[])
 
     let content;
 

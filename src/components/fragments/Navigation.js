@@ -7,7 +7,7 @@ function Navigation() {
                 <li><Link to="/">Strona główna</Link></li>
                 <li><Link to="/professors">Profesorowie</Link></li>
                 <li><Link to="/lectures">Wykłady</Link></li>
-                <li><Link to="/departments">Departamenty</Link></li>
+                <li><Link to="/departments">Katedry</Link></li>
 
             </ul>
         </nav>

@@ -23,20 +23,34 @@ function LectureDetailsData(props) {
                     <th>Nazwisko</th>
                     <th>Email</th>
                     <th>Specialization</th>
-                    //KONIEC 24.01
                 </tr>
                 </thead>
                 <tbody>
-                {prof.lectures.map(
-                    lecture =>
-                        <tr key={lecture._id}>
-                            <td>{lecture.name}</td>
-                            <td>{lecture.department.name}</td>
-                            <td>{lecture.dateFrom ? getFormattedDate(lecture.dateFrom) : ""}</td>
-                            <td>{lecture.dateTo ? getFormattedDate(lecture.dateTo) : ""}</td>
-                            <td>{lecture.duration}</td>
-                        </tr>
-                )}
+                <tr key={lecture.professor._id}>
+                    <td>{lecture.professor.firstName}</td>
+                    <td>{lecture.professor.lastName}</td>
+                    <td>{lecture.professor.email}</td>
+                    <td>{lecture.professor.specialization}</td>
+                </tr>
+                </tbody>
+            </table>
+            <h2>Katedra:</h2>
+            <table className="table-list">
+                <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Ilość godzin</th>
+                    <th className="scrollable">Opis</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr key={lecture.department._id}>
+                    <td>{lecture.department.name}</td>
+                    <td className={"dept-hours"}>{lecture.department.totalHours}</td>
+                    <td className={"dept-description"}>
+                        <div className={"scrollable"}>{lecture.department.description}</div>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </>

@@ -44,7 +44,7 @@ function ProfessorList() {
             <h2>Lista profesorów</h2>
             {content}
             <p className="section-buttons">
-                <Link to="/professors/add" className="button-add">Dodaj nowego profesora</Link>
+                <Link to="/professors/add" className="button-add">Dodaj profesora</Link>
             </p>
         </main>
     )
