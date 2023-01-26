@@ -23,6 +23,18 @@ export function addProfessorApiCall(prof) {
     return fetch(professorsBaseUrl, options); //promise
 }
 
+export function deleteProfessorsApiCall(prof) {
+    const url = `${professorsBaseUrl}/${prof.id}`;
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    };
+    return fetch(professorsBaseUrl, options); //promise
+}
+
+
 export function updateProfessorApiCall(profId, prof) {
     const url = `${professorsBaseUrl}/${profId}`
     const profString = JSON.stringify(prof)
@@ -33,5 +45,6 @@ export function updateProfessorApiCall(profId, prof) {
         },
         body: profString
     }
+    // console.log(options);
     return fetch(url, options); //promise
 }

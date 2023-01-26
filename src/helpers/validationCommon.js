@@ -1,4 +1,4 @@
-export function resetErrors(inputs, errorTexts, errorInfo) {
+/*export function resetErrors(inputs, errorTexts, errorInfo) {
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].classList.remove('error-input');
     }
@@ -6,7 +6,7 @@ export function resetErrors(inputs, errorTexts, errorInfo) {
         errorTexts[i].innerText = "";
     }
     errorInfo.innerText = "";
-}
+}*/
 
 export function checkRequired(value) {
     if (!value) {
@@ -44,7 +44,7 @@ export function checkNumber(value) {
     return !isNaN(value);
 }
 
-export function checkNumberRange(value, min, max) {
+/*export function checkNumberRange(value, min, max) {
     if (!value) {
         return false;
     }
@@ -56,7 +56,7 @@ export function checkNumberRange(value, min, max) {
         return false;
     }
     return value <= max;
-}
+}*/
 
 export function checkDate(value) {
     if (!value) {

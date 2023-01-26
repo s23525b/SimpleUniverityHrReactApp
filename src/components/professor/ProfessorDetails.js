@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react'
 import {Link, useParams} from 'react-router-dom'
 import {getProfessorByIdApiCall} from '../../apiCalls/professorApiCalls'
 import ProfessorDetailsData from "./ProfessorDetailsData";
-
+import {useTranslation} from "react-i18next";
 function ProfessorDetails() {
+    const {t} = useTranslation();
     let {profId} = useParams()
     profId = parseInt(profId)
     const prof = getProfessorByIdApiCall(profId)
@@ -41,18 +42,18 @@ function ProfessorDetails() {
     if (error) {
         content = <p>{error.message}</p>
     } else if (!isLoaded) {
-        content = <p>Ładowanie danych profesora...</p>
+        content = <p>{t('prof.list.loading')}</p>
     } else if (!prof) {
-        content = <p>Nie znaleziono profesora</p>
+        content = <p>{t('prof.list.noData')}</p>
     } else {
         content = <ProfessorDetailsData profData={professors}/>
     }
     return (
         <main>
-            <h2>Szczegóły profesora</h2>
+            <h2>{t('prof.form.details.pageTitle')}</h2>
             {content}
             <div className="section-buttons">
-                <Link to="/professors" className="button-add">Powrót</Link>
+                <Link to="/professors" className="button-add">{t('form.actions.return')}</Link>
             </div>
         </main>
     )

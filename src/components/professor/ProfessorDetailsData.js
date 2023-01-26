@@ -1,15 +1,17 @@
 import {getFormattedDate} from "../../helpers/dateHelper"
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 function ProfessorDetailsData(props) {
+    const {t} = useTranslation();
     const prof = props.profData
     return (
         <>
-            <p>Imię: {prof.firstName}</p>
-            <p>Nazwisko: {prof.lastName} </p>
-            <p>E-mail: {prof.email} </p>
-            <p>Specjalizacja: {prof.specialization} </p>
-            <h2>Wykłady:</h2>
+            <p>{t('prof.fields.firstName')}{': ' + prof.firstName}</p>
+            <p>{t('prof.fields.lastName')}{': ' + prof.lastName} </p>
+            <p>{t('prof.fields.email')}{': ' + prof.email} </p>
+            <p>{t('prof.fields.specialization')}{': ' + prof.specialization} </p>
+            <h2>{t('nav.lectures')}</h2>
             <table className="table-list">
                 <thead>
                 <tr>
@@ -36,4 +38,5 @@ function ProfessorDetailsData(props) {
         </>
     )
 }
+
 export default ProfessorDetailsData

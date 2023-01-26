@@ -1,22 +1,27 @@
-import {Link, useNavigate, useParams} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 import FormMode from "../../helpers/formHelper";
 import {useEffect, useState} from "react";
 import {addProfessorApiCall, updateProfessorApiCall, getProfessorByIdApiCall} from "../../apiCalls/professorApiCalls";
 import {checkRequired, checkTextLengthRange, checkEmail} from "../../helpers/validationCommon";
+import FormInput from "../form/FormInput";
+import FormButtons from "../form/FormButtons";
+import {useTranslation} from "react-i18next";
 
 function ProfessorForm() {
-
+    const {t} = useTranslation();
     const [prof, setProf] = useState({
         'firstName': '',
         'lastName': '',
         'email': '',
-        'specialization': ''
+        'specialization': '',
+        'password': ''
     })
     const [errors, setErrors] = useState({
         'firstName': '',
         'lastName': '',
         'email': '',
-        'specialization': ''
+        'specialization': '',
+        'password': ''
     })
 
     const [error, setError] = useState(null)
@@ -57,9 +62,9 @@ function ProfessorForm() {
         let errorMessage = ''
         if (fieldName === 'firstName') {
             if (!checkRequired(fieldValue)) {
-                errorMessage = 'Pole jest wymagane.'
+                errorMessage = 'Pole jest wymagane'
             } else if (!checkTextLengthRange(fieldValue, 2, 60)) {
-                errorMessage = 'Pole powinno zawierać od 2 do 60 znaków.'
+                errorMessage = 'Pole powinno zawierać od 2 do 60 znaków'
             }
         }
         if (fieldName === 'lastName') {
@@ -85,11 +90,18 @@ function ProfessorForm() {
                 errorMessage = "Pole powinno zawierać od 2 do 60 znaków"
             }
         }
+        if (fieldName === 'password') {
+            if (!checkRequired(fieldValue)) {
+                errorMessage = "Pole jest wymagane";
+            } else if (!checkTextLengthRange(fieldValue, 5, 60)) {
+                errorMessage = "Pole powinno zawierać od 5 do 60 znaków";
+            }
+        }
         return errorMessage;
     }
 
     function handleChange(event) {
-        const {name, value} = event.target;
+        const {name, value} = event.target
         const errorMessage = validateField(name, value)
         setError({
             ...errors, [name]: errorMessage
@@ -126,10 +138,10 @@ function ProfessorForm() {
             if (promise) {
                 promise
                     .then(
-                        (res) => {
-                            response = res
+                        (data) => {
+                            response = data
                             if (response.status === 201 || response.status === 500) {
-                                return res.json()
+                                return data.json()
                             }
                         }
                     )
@@ -148,25 +160,30 @@ function ProfessorForm() {
                             } else {
                                 setRedirect(true)
                             }
+                        },
+                        (error) => {
+                            setError(error)
                         }
-                    ),
-                    (error) => {
-                        setError(error)
-                    }
-            )
+                    )
             }
         }
     }
 
     function hasErrors() {
-        let hasErrors = false
         Object.values(errors).forEach((value) => {
             if (value.length > 0) {
-                hasErrors = true
+                return true
             }
         })
-        return hasErrors
+        return false
     }
+
+
+    useEffect(() => {
+        if (redirect) {
+            navigate('/professors')
+        }
+    }, [redirect])
 
     const errorsSummary = hasErrors() ? 'Formularz zawiera błędy.' : ''
     const fetchError = error ? `Błąd: ${error.message}` : ''
@@ -176,28 +193,31 @@ function ProfessorForm() {
     return (
         <main>
             <h2>{pageTitle}</h2>
-            <form className="form">
-                <label htmlFor="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value=""/>
-                <span id="errorFirstName" className="errors-text"></span>
+            <form className="form" onSubmit={handleSubmit}>
+                <FormInput type={"text"} label={t('prof.fields.firstName')} name={"firstName"} value={prof.firstName}
+                           onChange={handleChange}
+                           error={errors.firstName} placeholder={"2-60 znaków"} required/>
 
-                <label htmlFor="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value=""/>
-                <span id="errorLastName" className="errors-text"></span>
+                <FormInput type={"text"} label={t('prof.fields.lastName')} name={"lastName"} value={prof.lastName}
+                           onChange={handleChange}
+                           error={errors.lastName} placeholder={"2-60 znaków"} required/>
 
-                <label htmlFor="email">Email:<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="email" name="email" id="email" placeholder="np. nazwa@domena.pl" value=""/>
-                <span id="errorEmail" className="errors-text"></span>
+                <FormInput type={"email"} label={t('prof.fields.email')} name={"email"} value={prof.email}
+                           onChange={handleChange}
+                           error={errors.email} placeholder={"imie.nazwisko@utoronto.com"} required/>
 
-                <label htmlFor="specialization">Specjalizacja:<abbr title="required"
-                                                                    aria-label="required">*</abbr></label>
-                <input type="text" name="specialization" id="specialization" placeholder="np. matematyka" value=""/>
-                <span id="errorSpecialization" className="errors-text"></span>
-
+                <FormInput type={"text"} label={t('prof.fields.specialization')} name={"specialization"} value={prof.specialization}
+                           onChange={handleChange}
+                           error={errors.specialization} placeholder={"np. matematyka"} required/>
+                <FormInput type={"password"} label={t('prof.fields.password')} name={"password"} value={prof.password}
+                           onChange={handleChange}
+                           error={errors.password} required/>
                 <div className="form-buttons">
-                    <p id="errorsSummary" className="errors-text"></p>
-                    <input className="form-button-submit" type="submit" value="Dodaj"/>
-                    <Link to="/professors" className="form-button-cancel">Anuluj</Link>
+                    <FormButtons
+                        formMode={currentFormMode}
+                        error={globalErrorMessage}
+                        cancelPath={"/professors"}
+                    />
                 </div>
             </form>
         </main>

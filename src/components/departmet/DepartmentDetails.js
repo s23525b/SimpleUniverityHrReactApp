@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {Link, useParams} from 'react-router-dom'
 import {getDepartmentByIdApiCall} from "../../apiCalls/departmentApiCalls";
-import  DepartmentDetailsData from '../../apiCalls/departmentDetailsData'
+import DepartmentDetailsData from '../../apiCalls/departmentDetailsData'
+import {useTranslation} from "react-i18next";
 
 function DepartmentDetails() {
     let {deptId} = useParams()
@@ -11,8 +12,9 @@ function DepartmentDetails() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [message, setMessage] = useState(null);
     const [departments, setDepartments] = useState([]);
+    const {t} = useTranslation();
 
-    function fetchDepartmetnDetails() {
+    function fetchDepartmentDetails() {
         getDepartmentByIdApiCall(deptId)
             .then(res => res.json())
             .then(data => {
@@ -33,14 +35,14 @@ function DepartmentDetails() {
     }
 
     useEffect(() => {
-        fetchDepartmetnDetails()
-    },[])
+        fetchDepartmentDetails()
+    }, [])
 
     let content;
 
     if (error) {
         content = <p>{error.message}</p>
-    }else if (!isLoaded) {
+    } else if (!isLoaded) {
         content = <p>Ładowanie danych katedr...</p>
     } else if (!dept) {
         content = <p>Nie znaleziono katedr</p>

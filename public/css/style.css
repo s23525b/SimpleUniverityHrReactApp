@@ -67,6 +67,7 @@ main h2 {
     margin-bottom: 2rem;
 }
 
+
 main {
     background-color: #e7f1f8;
     padding: 1.5rem;
@@ -339,6 +340,29 @@ input:invalid {
 
 .button-add {
     width: 17rem;
+}
+
+nav ul li.lang {
+    margin-left: auto;
+}
+
+nav ul li button {
+    background-color: transparent;
+    border: 0;
+}
+
+nav ul li a,
+nav ul li button {
+    color: #cdcdcd;
+    display: inline-block;
+    padding: 1rem 2rem;
+    text-decoration: none;
+}
+
+nav ul li a:hover,
+nav ul li button:hover {
+    background-color: #9cd5ff;
+    color: black;
 }
 
 /*Błędy*/

@@ -1,0 +1,70 @@
+{
+  "errors": {
+    "tilte": "Error: ",
+    "fieldRequired": "Field is required",
+    "fieldRange": "Field must be between {2} and {60} characters"
+  },
+  "main-page": {
+    "content": "Main Page"
+  },
+  "nav": {
+    "main-page": "Main Page",
+    "professors": "Professors",
+    "departments": "Departments",
+    "lectures": "Lectures"
+  },
+  "list": {
+    "actions": {
+      "title": "Settings",
+      "details": "Details",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "form": {
+    "actions": {
+      "return": "Return",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "add": "Add"
+    }
+  },
+  "prof": {
+    "fields": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "specialization": "Specialization",
+      "password": "Password"
+    },
+    "list": {
+      "title": "Professors",
+      "addNew": "Add Professor",
+      "noData": "No professors found",
+      "pageTitle": "List of lectures",
+      "loading": "Loading..."
+    },
+    "form": {
+      "lecture": "Lecture",
+      "add": {
+        "pageTitle": "Adding lecture",
+        "btnLabel": "Add lecture",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "The professor has been added successfully"
+        }
+      },
+      "edit": {
+        "pageTitle": "Editing professor",
+        "btnLabel": "Save changes",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "The professor has been updated successfully"
+        }
+      },
+      "details": {
+        "pageTitle": "Professor details"
+      }
+    }
+  }
+}

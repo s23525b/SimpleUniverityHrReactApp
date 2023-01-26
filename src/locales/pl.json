@@ -1,0 +1,70 @@
+{
+  "errors": {
+    "tilte": "Błąd: ",
+    "fieldRequired": "Pole jest wymagane",
+    "fieldRange": "Pole powinno zawierać od 2 do 60 znaków"
+  },
+  "main-page": {
+    "content": "Strona główna"
+  },
+  "nav": {
+    "main-page": "Strona główna",
+    "professors": "Profesorowie",
+    "departments": "Katedry",
+    "lectures": "Wykłady"
+  },
+  "list": {
+    "actions": {
+      "title": "Opcje",
+      "details": "Szczegóły",
+      "edit": "Edytuj",
+      "delete": "Usuń"
+    }
+  },
+  "form": {
+    "actions": {
+      "return": "Powrót",
+      "edit": "Edytuj",
+      "cancel": "Anuluj",
+      "add": "Dodaj"
+    }
+  },
+  "prof": {
+    "fields": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "email": "Email",
+      "specialization": "Specjalizacja",
+      "password": "Hasło"
+    },
+    "list": {
+      "title": "Profesorowie",
+      "addNew": "Dodaj profesora",
+      "noData": "Brak profesorów w bazie",
+      "pageTitle": "Lista profesorów",
+      "loading": "Ładowanie..."
+    },
+    "form": {
+      "lecture": "Wykład",
+      "add": {
+        "pageTitle": "Dodawanie wykładu",
+        "btnLabel": "Dodaj wykład",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie dodano profesora"
+        }
+      },
+      "edit": {
+        "pageTitle": "Edycja profesora",
+        "btnLabel": "Zapisz",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie zaktualizowano profesora"
+        }
+      },
+      "details": {
+        "pageTitle": "Szczegóły profesora"
+      }
+    }
+  }
+}
